@@ -13,6 +13,9 @@ class CountdownController {
   /// Called when restarting the timer
   VoidCallback? onRestart;
 
+  /// Called when reset timer values
+  VoidCallback? onReset;
+
   /// Called when timer is staring
   VoidCallback? onStart;
 
@@ -92,5 +95,10 @@ class CountdownController {
   /// set onRestart callback
   setOnRestart(VoidCallback onRestart) {
     this.onRestart = onRestart;
+  }
+
+  /// set onReset callback
+  setOnReset(VoidCallback onReset) {
+    this.onReset = onReset;
   }
 }

@@ -61,6 +61,7 @@ class _CountdownState extends State<Countdown> {
     widget.controller?.setOnPause(_onTimerPaused);
     widget.controller?.setOnResume(_onTimerResumed);
     widget.controller?.setOnRestart(_onTimerRestart);
+    widget.controller?.setOnReset(_onTimerReset);
     widget.controller?.isCompleted = false;
 
     if (widget.controller == null || widget.controller!.autoStart == true) {
@@ -113,6 +114,15 @@ class _CountdownState extends State<Countdown> {
   ///
   /// Then timer restarted
   ///
+  void _onTimerReset() {
+    widget.controller?.isCompleted = false;    
+    _onFinishedExecuted = false;
+
+    setState(() {
+      _currentMicroSeconds = widget.seconds * _secondsFactor;
+    });
+
+  }
   void _onTimerRestart() {
     widget.controller?.isCompleted = false;    
     _onFinishedExecuted = false;

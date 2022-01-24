@@ -23,3 +23,12 @@ doc
 # Include when developing application packages.
 pubspec.lock
 coverage*
+
+# autocreated
+.metadata
+android/
+ios/
+linux/
+simple_count_down.iml
+test/
+web/
