@@ -92,6 +92,16 @@ class CountdownController {
     }
   }
 
+  ///
+  /// Reset timer values
+  ///
+  reset() {
+    if (this.onReset!= null) {
+      this.onReset!();
+    }
+  }
+
+
   /// set onRestart callback
   setOnRestart(VoidCallback onRestart) {
     this.onRestart = onRestart;
