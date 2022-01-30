@@ -19,6 +19,9 @@ class CountdownController {
   /// Called when timer is staring
   VoidCallback? onStart;
 
+  VoidCallback? currentState;
+
+
   ///
   /// Checks if the timer is running and enables you to take actions
   /// according to that. if the timer is still active,
@@ -47,6 +50,7 @@ class CountdownController {
   start() {
     if (this.onStart != null) {
       this.onStart!();
+      currentState = onStart;
     }
   }
 
@@ -61,6 +65,7 @@ class CountdownController {
   pause() {
     if (this.onPause != null) {
       this.onPause!();
+      currentState = onPause;
     }
   }
 
@@ -98,6 +103,10 @@ class CountdownController {
   reset() {
     if (this.onReset!= null) {
       this.onReset!();
+      if(currentState != null)
+      {
+        this.currentState!();
+      }
     }
   }
 
