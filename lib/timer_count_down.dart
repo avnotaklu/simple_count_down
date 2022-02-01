@@ -7,7 +7,7 @@ import 'package:timer_count_down/timer_controller.dart';
 ///
 class Countdown extends StatefulWidget {
   /// Length of the timer
-  final int seconds;
+  final Duration duration;
 
   /// Build method for the timer
   final Widget Function(BuildContext, double) build;
@@ -26,7 +26,7 @@ class Countdown extends StatefulWidget {
   ///
   Countdown({
     Key? key,
-    required this.seconds,
+    required this.duration,
     required this.build,
     this.interval = const Duration(seconds: 1),
     this.onFinished,
@@ -41,8 +41,6 @@ class Countdown extends StatefulWidget {
 /// State of timer
 ///
 class _CountdownState extends State<Countdown> {
-  // Multiplier of secconds
-  final int _secondsFactor = 1000000;
 
   // Timer
   Timer? _timer;
@@ -55,7 +53,7 @@ class _CountdownState extends State<Countdown> {
 
   @override
   void initState() {
-    _currentMicroSeconds = widget.seconds * _secondsFactor;
+    _currentMicroSeconds = widget.duration.inMicroseconds;
 
     widget.controller?.setOnStart(_startTimer);
     widget.controller?.setOnPause(_onTimerPaused);
@@ -74,8 +72,8 @@ class _CountdownState extends State<Countdown> {
   @override
   void didUpdateWidget(Countdown oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.seconds != widget.seconds)
-      _currentMicroSeconds = widget.seconds * _secondsFactor;
+    if (oldWidget.duration.inSeconds != widget.duration.inSeconds)
+      _currentMicroSeconds = widget.duration.inMicroseconds;
   }
 
   @override
@@ -91,7 +89,7 @@ class _CountdownState extends State<Countdown> {
   Widget build(BuildContext context) {
     return widget.build(
       context,
-      _currentMicroSeconds / _secondsFactor,
+      widget.duration.inMicroseconds,
     );
   }
 
@@ -119,7 +117,7 @@ class _CountdownState extends State<Countdown> {
     _onFinishedExecuted = false;
 
     setState(() {
-      _currentMicroSeconds = widget.seconds * _secondsFactor;
+      _currentMicroSeconds = widget.duration.inMicroseconds;
     });
 
   }
@@ -128,7 +126,7 @@ class _CountdownState extends State<Countdown> {
     _onFinishedExecuted = false;
 
     setState(() {
-      _currentMicroSeconds = widget.seconds * _secondsFactor;
+      _currentMicroSeconds = widget.duration.inMicroseconds;
     });
 
     _startTimer();
